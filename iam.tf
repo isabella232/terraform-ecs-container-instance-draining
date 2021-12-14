@@ -100,7 +100,7 @@ data "aws_iam_policy_document" "lifecycle_assume_role" {
 }
 
 resource "aws_iam_role" "lifecycle" {
-  name_prefix        = "lifecycle-role-"
+  name_prefix        = "draining-lifecycle-role-"
   assume_role_policy = data.aws_iam_policy_document.lifecycle_assume_role.json
 
   tags = var.tags
@@ -120,8 +120,8 @@ data "aws_iam_policy_document" "lifecycle_policy" {
 }
 
 resource "aws_iam_role_policy" "lifecycle_execution_policy" {
-  name = format("%s-lifecycle-policy", var.autoscaling_group_name)
-  role = aws_iam_role.lifecycle.id
+  name_prefix = "draining-lifecycle-policy-"
+  role        = aws_iam_role.lifecycle.id
 
   policy = data.aws_iam_policy_document.lifecycle_policy.json
 }

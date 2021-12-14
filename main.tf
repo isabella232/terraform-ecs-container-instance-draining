@@ -12,8 +12,12 @@ resource "aws_lambda_permission" "with_sns" {
   source_arn    = aws_sns_topic.topic.arn
 }
 
+resource "random_id" "suffix" {
+  byte_length = 8
+}
+
 resource "aws_lambda_function" "draining_lambda" {
-  function_name = format("%s-draining-function", var.autoscaling_group_name)
+  function_name = "draining-function-${random_id.suffix.hex}"
   role          = aws_iam_role.lambda.arn
   handler       = "index.lambda_handler"
   runtime       = "python3.7"
