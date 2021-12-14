@@ -56,8 +56,5 @@ module "asg" {
 module "example_module_test" {
   source                 = "../."
   autoscaling_group_name = module.asg.this_autoscaling_group_name
-  autoscaling_group_arn  = module.asg.this_autoscaling_group_arn
-  ecs_cluster_arn        = module.ecs.this_ecs_cluster_arn
   ecs_cluster_name       = module.ecs.this_ecs_cluster_name
-  region                 = "eu-west-1"
 }

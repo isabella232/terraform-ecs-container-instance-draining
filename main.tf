@@ -23,7 +23,7 @@ resource "aws_lambda_function" "draining_lambda" {
   environment {
     variables = {
       CLUSTER = var.ecs_cluster_name
-      REGION  = var.region
+      REGION  = data.aws_region.current.name
     }
   }
 

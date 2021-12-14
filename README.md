@@ -23,12 +23,8 @@ data "aws_region" "current" {}
 module "example_module_test" {
   source = "git::https://github.com/edispark/terraform-ecs-container-instance-draining"
 
-  autoscaling_group_name = "arn:partition:service:region:account-id:autoScalingGroupName/XXX"
-  autoscaling_group_arn = "my-asg-name"
-  ecs_cluster_arn = "arn:partition:service:region:account-id:cluster/XXX"
-  ecs_cluster_name = "my-ecs-cluster-name"
-
-  region                 = data.aws_region.current.name
+  autoscaling_group_name = "my-asg-name"
+  ecs_cluster_name       = "my-cluster-name"
 }
 ```
 
@@ -52,11 +48,8 @@ module "example_module_test" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| autoscaling\_group\_arn | The name of the Auto Scaling group to which you want to assign the lifecycle hook to | `string` | n/a | yes |
 | autoscaling\_group\_name | The name of the Auto Scaling group to which you want to assign the lifecycle hook to | `string` | n/a | yes |
-| ecs\_cluster\_arn | Specifies the ECS Cluster ARN with which the resources would be associated | `string` | n/a | yes |
 | ecs\_cluster\_name | Specifies the ECS Cluster Name with which the resources would be associated | `string` | n/a | yes |
-| region | AWS Region for ECS cluster | `string` | n/a | yes |
 | tags | Additional tags (\_e.g.\_ { BusinessUnit : ABC }) | `map(string)` | `{}` | no |
 
 ## Outputs

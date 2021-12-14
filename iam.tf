@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "lambda" {
     ]
 
     resources = [
-      var.autoscaling_group_arn
+      data.aws_autoscaling_group.asg.arn
     ]
   }
 
@@ -50,9 +50,9 @@ data "aws_iam_policy_document" "lambda" {
     ]
 
     resources = [
-      var.ecs_cluster_arn,
-      format("%s/*", var.ecs_cluster_arn),
-      format("arn:aws:ecs:%s:%s:container-instance/%s/*", var.region, data.aws_caller_identity.current.account_id, var.ecs_cluster_name)
+      data.aws_ecs_cluster.cluster.arn,
+      format("%s/*", data.aws_ecs_cluster.cluster.arn),
+      format("arn:aws:ecs:%s:%s:container-instance/%s/*", data.aws_region.current.name, data.aws_caller_identity.current.account_id, var.ecs_cluster_name)
     ]
   }
 
