@@ -69,15 +69,15 @@ data "aws_iam_policy_document" "lambda" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name               = format("%s-draining-function-role", var.autoscaling_group_name)
+  name_prefix        = "draining-function-role-"
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 
   tags = var.tags
 }
 
 resource "aws_iam_role_policy" "lambda_execution_policy" {
-  name = format("%s-draining-function-policy", var.autoscaling_group_name)
-  role = aws_iam_role.lambda.id
+  name_prefix = "draining-function-policy-"
+  role        = aws_iam_role.lambda.id
 
   policy = data.aws_iam_policy_document.lambda.json
 }
@@ -100,7 +100,7 @@ data "aws_iam_policy_document" "lifecycle_assume_role" {
 }
 
 resource "aws_iam_role" "lifecycle" {
-  name               = format("%s-lifecycle-role", var.autoscaling_group_name)
+  name_prefix        = "lifecycle-role-"
   assume_role_policy = data.aws_iam_policy_document.lifecycle_assume_role.json
 
   tags = var.tags
